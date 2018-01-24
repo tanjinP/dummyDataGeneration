@@ -1,46 +1,35 @@
 import slick.driver.PostgresDriver.api._
 
-import java.sql.Timestamp
+import java.sql.{Date, Timestamp}
 
+case class ActivityLog(
+                      id: Int,
+                      createdAt: Timestamp,
+                      updatedAt: Timestamp,
+                      status: String,
+                      userId: Int,
+                      industryName: String,
+                      tenantLocation: String,
+                      successProbability: Int,
+                      leaseExpiration: Date,
+                      lastModifiedTime: Timestamp,
+                      accountId: Int,
+                      moveInDate: Date
+                      )
 
-case class Company(id: Int, name: String)
-case class Companies(tag: Tag) extends Table[Company](tag, "company") {
-  def id = column[Int]("c_id")
-  def name = column[String]("name")
-  def * = (id, name) <> (Company.tupled, Company.unapply)
-}
-
-case class Property(id: Int, companyId: Int, name: String)
-case class Properties(tag: Tag) extends Table[Property](tag, "property") {
-  def id = column[Int]("p_id")
-  def companyId = column[Int]("c_id")
-  def name = column[String]("name")
-  def * = (id, companyId, name) <> (Property.tupled, Property.unapply)
-}
-
-case class Floor(id: Int, propertyId: Int, name: String)
-case class Floors(tag: Tag) extends Table[Floor](tag, "floor") {
-  def id = column[Int]("f_id")
-  def propertyId = column[Int]("p_id")
-  def name = column[String]("name")
-  def * = (id, propertyId, name) <> (Floor.tupled, Floor.unapply)
-}
-
-case class Space(id: Int, floorId: Int, name: String)
-case class Spaces(tag: Tag) extends Table[Space](tag, "space") {
-  def id = column[Int]("s_id")
-  def floorId = column[Int]("f_id")
-  def name = column[String]("name")
-  def * = (id, floorId, name) <> (Space.tupled, Space.unapply)
-}
-
-case class Deal(id: Int, spaceId: Int, name: String, start: Timestamp, end: Timestamp, amount: Double)
-case class Deals(tag: Tag) extends Table[Deal](tag, "deal") {
-  def id = column[Int]("d_id")
-  def spaceId = column[Int]("s_id")
-  def name = column[String]("name")
-  def start = column[Timestamp]("start")
-  def end = column[Timestamp]("end")
-  def amount = column[Double]("amount")
-  def * = (id, spaceId, name, start, end, amount) <> (Deal.tupled, Deal.unapply)
+case class ActivityLogs(tag: Tag) extends Table[ActivityLog](tag, "activity_logs") {
+  def id = column[Int]("id")
+  def createdAt = column[Timestamp]("created_at")
+  def updatedAt = column[Timestamp]("updated_at")
+  def status = column[String]("status")
+  def userId = column[Int]("user_id")
+  def industryName = column[String]("industry_name")
+  def tenantLocation = column[String]("tenant_location")
+  def successProbability = column[Int]("success_probability")
+  def leaseExpiration = column[Date]("lease_expiration_date")
+  def lastModifiedTime = column[Timestamp]("last_modified_time")
+  def accountId = column[Int]("account_id")
+  def moveInDate = column[Date]("move_in_date")
+  def * = (id, createdAt, updatedAt, status, userId, industryName, tenantLocation, successProbability,
+    leaseExpiration, lastModifiedTime, accountId, moveInDate) <> (ActivityLog.tupled, ActivityLog.unapply)
 }
