@@ -17,7 +17,8 @@ case class ActivityLogs(tag: Tag) extends Table[ActivityLog](tag, "activity_logs
   def tenantLocation = column[String]("tenant_location")
   def successProbability = column[Int]("success_probability")
   def accountId = column[Int]("account_id")
-  def * = (id, status, userId, industryName, tenantLocation, successProbability, accountId) <> (ActivityLog.tupled, ActivityLog.unapply)
+  def * = (id, status, userId, industryName, tenantLocation, successProbability, accountId) <>
+    (ActivityLog.tupled, ActivityLog.unapply)
 }
 
 case class Proposal(
