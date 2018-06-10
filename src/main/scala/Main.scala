@@ -64,6 +64,13 @@ object Main {
     } yield Proposal(id, activityId, bool, !bool, string)
   }
 
+  private def generateData[A](name: String): IndexedSeq[A] = {
+    for {
+      id <- RECORDS_TO_INSERT + 1 to 2 * RECORDS_TO_INSERT
+      string = s"string for the $name"
+    } yield ???
+  }
+
 
   private def chunk[A](seq: Seq[A]): Iterator[Seq[A]] = {
     seq.grouped(CHUNK_AMOUNT)
